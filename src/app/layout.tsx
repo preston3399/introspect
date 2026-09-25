@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Introspect",
   description:
-    "Tell it how you feel. It offers one possible reason why — not therapy, just a starting point you can dig deeper into.",
+    "Tell it how you feel. It offers one possible reason why. Not therapy, just a starting point you can dig deeper into.",
   // Added to an iPhone home screen, open full-screen with content drawn under the status bar;
   // the app's safe-area padding keeps it clear of the notch / Dynamic Island.
   appleWebApp: { capable: true, title: "Introspect", statusBarStyle: "black-translucent" },
