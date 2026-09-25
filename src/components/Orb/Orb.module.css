@@ -1,0 +1,137 @@
+.orb {
+  --orb-size: 180px;
+  position: relative;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.body {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  isolation: isolate;
+  background: radial-gradient(circle at 42% 48%, #f58a78 0%, #f06a5a 45%, #ea4436 100%);
+  /* Force a compositing layer so blurred children stay clipped to the circle in Safari. */
+  transform: translateZ(0);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(calc(var(--orb-size) * 0.14));
+  will-change: transform;
+}
+
+.blobRed {
+  width: 60%;
+  height: 55%;
+  top: -8%;
+  left: 35%;
+  background: #e8231f;
+  opacity: 0.65;
+  animation: driftA 15s ease-in-out infinite alternate;
+}
+
+.blobPale {
+  width: 50%;
+  height: 50%;
+  top: 22%;
+  left: -6%;
+  background: #ffc2b4;
+  opacity: 0.55;
+  animation: driftB 19s ease-in-out infinite alternate;
+}
+
+.blobDeep {
+  width: 55%;
+  height: 45%;
+  bottom: -6%;
+  left: 25%;
+  background: #e8231f;
+  opacity: 0.6;
+  animation: driftC 23s ease-in-out infinite alternate;
+}
+
+/* Bone light catching the right edge. */
+.rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 108% 58%, #fff6e4 0%, rgba(240, 230, 210, 0.85) 14%, transparent 40%);
+  animation: rimShift 11s ease-in-out infinite alternate;
+}
+
+/* Ambient halo + breathing, used for the full listening orb. */
+.glow {
+  animation: breathe 5.6s ease-in-out infinite;
+}
+
+.glow::before {
+  content: "";
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 35, 31, 0.6) 36%, rgba(232, 35, 31, 0) 70%);
+  filter: blur(calc(var(--orb-size) * 0.06));
+  animation: halo 5.6s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* Thinking: same breath, quicker — reads as "working" without spinning. */
+.thinking,
+.thinking::before {
+  animation-duration: 2.4s;
+}
+
+.thinking .blob {
+  animation-duration: 6s;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.97);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes halo {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes driftA {
+  to {
+    transform: translate(-22%, 18%) scale(1.15);
+  }
+}
+
+@keyframes driftB {
+  to {
+    transform: translate(30%, -16%) scale(0.9);
+  }
+}
+
+@keyframes driftC {
+  to {
+    transform: translate(-18%, -24%) scale(1.1);
+  }
+}
+
+@keyframes rimShift {
+  to {
+    transform: rotate(-24deg);
+  }
+}

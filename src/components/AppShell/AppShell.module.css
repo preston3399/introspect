@@ -1,0 +1,52 @@
+.frame {
+  height: 100vh; /* fallback for browsers without dynamic viewport units */
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  /* Landscape cutouts: keep the centered column between them without squeezing it. */
+  padding: 0 var(--safe-right) 0 var(--safe-left);
+  background: var(--bg);
+}
+
+/* Content stays clear of the notch / Dynamic Island; the background still runs edge to edge
+   behind it. Bottom insets are handled by each screen's dock. */
+.app {
+  position: relative;
+  width: 100%;
+  max-width: var(--app-max-width);
+  height: 100%;
+  overflow: hidden;
+  /* clip (unlike hidden) cannot be scrolled programmatically, e.g. by scrollIntoView. */
+  overflow: clip;
+  padding-top: var(--safe-top);
+}
+
+.screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* On a large desktop viewport, present the app in a phone-sized frame for the portfolio. */
+@media (min-width: 720px) and (min-height: 900px) {
+  .frame {
+    align-items: center;
+    background: #0b0b0c;
+  }
+
+  .app {
+    width: 390px;
+    height: 844px;
+    border-radius: 44px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  }
+}

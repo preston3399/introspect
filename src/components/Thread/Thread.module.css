@@ -1,0 +1,196 @@
+.thread {
+  --big-orb: clamp(110px, 20dvh, 160px);
+
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollWrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.scroll {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px var(--gutter) 28px;
+  scrollbar-width: none;
+  /* Soft fade where content meets the top bar and dock. */
+  mask-image: linear-gradient(to bottom, transparent 0, #000 20px, #000 calc(100% - 24px), transparent 100%);
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.resolvedBadge {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px 6px 11px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--resolved);
+  background: var(--resolved-soft);
+  color: var(--resolved);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.resolvedBadge svg {
+  width: 15px;
+  height: 15px;
+}
+
+.userBubble {
+  align-self: flex-end;
+  max-width: 84%;
+  padding: 12px 16px;
+  border-radius: 20px 20px 6px 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.insight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  scroll-margin-top: 20px;
+}
+
+.insightText {
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
+.thinking {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 0 8px;
+}
+
+.thinkingLabel {
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(232, 35, 31, 0.35);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.textBtn {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--bone);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(240, 230, 210, 0.4);
+}
+
+.textBtn:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.newLink {
+  align-self: center;
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration-color: rgba(156, 156, 161, 0.4);
+}
+
+/* Listening: the thread recedes and the orb takes the space above the dock. */
+.voiceLayer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(to bottom, rgba(19, 19, 20, 0.7), var(--bg) 70%);
+  backdrop-filter: blur(3px);
+}
+
+.voiceOrb {
+  border-radius: 50%;
+}
+
+.voiceOrb:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 8px;
+}
+
+/* ---- Dock ---- */
+
+.dock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 27px max(40px, calc(var(--safe-bottom) + 14px));
+}
+
+.notice {
+  margin-bottom: -8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.resolvedNote {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Short screens (phones in landscape): give the conversation more room. */
+@media (max-height: 520px) {
+  .thread {
+    --big-orb: 96px;
+  }
+
+  .scroll {
+    padding-top: 12px;
+    gap: 16px;
+  }
+
+  .dock {
+    gap: 10px;
+    padding-top: 6px;
+    padding-bottom: max(12px, calc(var(--safe-bottom) + 6px));
+  }
+}
