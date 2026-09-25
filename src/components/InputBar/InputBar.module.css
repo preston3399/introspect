@@ -1,0 +1,108 @@
+.bar {
+  width: 100%;
+  min-height: 46px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0 7px 0 22px;
+  border-radius: 23px;
+  /* Light liquid glass: smoked translucent body, frost, faint top rim. */
+  background: linear-gradient(180deg, rgba(40, 40, 43, 0.62), rgba(28, 28, 30, 0.55));
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 4px rgba(0, 0, 0, 0.25),
+    0 6px 18px -8px rgba(0, 0, 0, 0.6);
+  transition: border-color 0.3s ease;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .bar {
+    background: var(--surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-color: var(--border);
+  }
+}
+
+.bar:focus-within {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.bar[data-listening] {
+  border-color: rgba(232, 35, 31, 0.45);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 0 11px;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 21px;
+  color: var(--text);
+  max-height: 140px;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.micBtn {
+  width: 28px;
+  height: 44px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  transition:
+    color 0.3s ease,
+    transform 0.14s var(--ease-out);
+}
+
+.micBtn[data-active] {
+  color: var(--accent);
+}
+
+.micBtn[data-unsupported] {
+  opacity: 0.4;
+}
+
+.micBtn:active {
+  transform: scale(var(--press-scale));
+}
+
+/* Real mic_icon.png art, tinted via mask so it can be gray or red. */
+.micGlyph {
+  width: 15px;
+  height: 18px;
+  background-color: currentColor;
+  -webkit-mask: url("/brand/mic.png") center / contain no-repeat;
+  mask: url("/brand/mic.png") center / contain no-repeat;
+}
+
+.miniOrbBtn {
+  height: 44px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  justify-content: end;
+}
+
+.miniOrbBtn:active {
+  transform: scale(var(--press-scale));
+}
+
+.micBtn:focus-visible,
+.miniOrbBtn:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: -2px;
+  border-radius: 50%;
+}

@@ -1,0 +1,130 @@
+/*
+ * Liquid-glass pill. Layers, back to front:
+ *   tinted translucent body + backdrop blur/saturate (frost)
+ *   ::after  specular sheen across the top
+ *   ::before gradient rim light (bright top edge fading down)
+ *   inset shadows for thickness, outer tinted glow for lift
+ * Label stays white Fraunces to match Reflect_Button.png / Resolve_Button.png.
+ */
+.pill {
+  --tint: 232, 35, 31;
+
+  position: relative;
+  isolation: isolate;
+  min-width: 164px;
+  height: 50px;
+  padding: 0 34px;
+  border-radius: var(--radius-pill);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+
+  background: linear-gradient(180deg, rgba(var(--tint), 0.86) 0%, rgba(var(--tint), 0.78) 100%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.15),
+    0 6px 16px -10px rgba(var(--tint), 0.45);
+
+  transition:
+    transform 0.14s var(--ease-out),
+    opacity 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* Rim light: a 1px gradient border, brightest along the top edge. */
+.pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.32) 0%,
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+
+/* Specular sheen: a faint highlight that fades out before mid-height. */
+.pill::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 45%);
+  pointer-events: none;
+}
+
+.pill:active:not(:disabled) {
+  transform: scale(var(--press-scale));
+}
+
+.pill:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.pill:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 3px;
+}
+
+.md {
+  min-width: 0;
+  height: 46px;
+  padding: 0 20px;
+  font-size: 23px;
+}
+
+.reflect {
+  --tint: 232, 35, 31;
+}
+
+.resolve {
+  --tint: 62, 130, 247;
+}
+
+@media (hover: hover) {
+  .pill:hover:not(:disabled) {
+    filter: brightness(1.06);
+  }
+}
+
+/* No backdrop blur available: lean on a more opaque tint so it still reads as glass-ish. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pill {
+    background: linear-gradient(180deg, rgba(var(--tint), 0.92), rgba(var(--tint), 0.8));
+  }
+}
+
+/* iOS "Reduce Transparency" and similar: solid brand fills, no frost or sheen. */
+@media (prefers-reduced-transparency: reduce) {
+  .pill {
+    background: rgb(var(--tint));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  }
+
+  .pill::before,
+  .pill::after {
+    display: none;
+  }
+}

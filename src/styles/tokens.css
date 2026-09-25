@@ -1,0 +1,50 @@
+/* Introspect design tokens — values from introspect-brief.md / color card. Dark-first. */
+:root {
+  /* Surfaces */
+  --bg: #131314;
+  --surface: #1c1c1e;
+  --surface-2: #242426;
+  --border: #333335;
+
+  /* Text */
+  --text: #ffffff;
+  --text-muted: #9c9ca1;
+
+  /* Brand */
+  --accent: #e8231f;
+  --accent-soft: rgba(232, 35, 31, 0.14);
+  --bone: #f0e6d2;
+
+  /* Functional */
+  --resolved: #3e82f7;
+  --resolved-soft: rgba(62, 130, 247, 0.14);
+
+  /* Emotion tags */
+  --happiness: #d3a648;
+  --sadness: #6f93b8;
+  --fear: #9784b8;
+  --anger: #b45b41;
+  --shame: #7c8a5e;
+
+  /* Type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-ui: "Work Sans", system-ui, sans-serif;
+  /* Fraunces custom axes; opsz is handled by font-optical-sizing: auto */
+  --fraunces-axes: "SOFT" 0, "WONK" 0;
+
+  /* Device safe areas (notch / Dynamic Island, home indicator, landscape cutouts).
+     Everything reads these tokens rather than env() directly, so they can be simulated in testing. */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
+  /* Layout */
+  --app-max-width: 430px;
+  --gutter: 20px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --press-scale: 0.93;
+}

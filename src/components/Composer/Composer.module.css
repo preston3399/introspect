@@ -1,0 +1,114 @@
+.composer {
+  --big-orb: clamp(120px, 22dvh, 182px);
+  --headline-gap: clamp(28px, 10dvh, 90px);
+
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.composer[data-listening] {
+  --headline-gap: 20px;
+}
+
+.intro {
+  margin: clamp(28px, 11dvh, 92px) auto 0;
+  padding: 0 var(--gutter);
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 21.5px;
+  text-align: center;
+}
+
+.stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.headline {
+  margin-top: var(--headline-gap);
+  padding: 0 16px;
+  text-align: center;
+  font-size: clamp(20px, 5.9vw, 23px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  transition: margin-top 0.7s var(--ease-out);
+}
+
+.orbSlot {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+}
+
+.bigOrb {
+  border-radius: 50%;
+}
+
+.bigOrb:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 8px;
+}
+
+/* ---- Bottom: input bar + Reflect ---- */
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  /* 44px matches the mockup; on phones with a home indicator, clear it by 16px instead of stacking both. */
+  padding: 0 27px max(44px, calc(var(--safe-bottom) + 16px));
+}
+
+.notice {
+  margin-bottom: -12px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Short screens (phones in landscape): tighten spacing and let the column scroll rather than overlap. */
+@media (max-height: 520px) {
+  .composer {
+    --big-orb: 96px;
+    --headline-gap: 12px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  /* While listening, the intro copy yields its space so the orb, input and Reflect all fit. */
+  .composer[data-listening] .intro {
+    display: none;
+  }
+
+  .stage {
+    flex: 1 0 auto;
+  }
+
+  .orbSlot {
+    min-height: 0;
+  }
+
+  .composer[data-listening] .orbSlot {
+    min-height: calc(var(--big-orb) + 24px);
+  }
+
+  .intro {
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 19px;
+  }
+
+  .bottom {
+    gap: 14px;
+    padding-top: 12px;
+    padding-bottom: max(14px, calc(var(--safe-bottom) + 8px));
+  }
+}

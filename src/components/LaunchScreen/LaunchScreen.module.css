@@ -1,0 +1,17 @@
+.splash {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+}
+
+.lockup {
+  width: min(322px, 82%);
+  height: auto;
+  /* Mockup sits the lockup slightly above optical center. */
+  margin-bottom: 14%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
